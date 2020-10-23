@@ -1,18 +1,15 @@
 <template>
-  <div class="hello" ref="chartdiv">
+  <div>
+    <div class="hello" ref="chartdiv">
+    </div>
   </div>
 </template>
 
 <script>
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-
-am4core.useTheme(am4themes_animated);
-
 export default {
   name: 'HelloWorld',
   mounted() {
+    const { am4core, am4charts, am4themes_animated } = this.$am4core_module();
     // add charts   
     let chart = am4core.create(this.$refs.chartdiv, am4charts.XYChart);
 
@@ -24,6 +21,7 @@ export default {
       visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
       data.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
     }
+
 
     chart.data = data;
 
@@ -47,7 +45,7 @@ export default {
 
     this.chart = chart; 
   },
-   beforeDestroy() {
+  beforeDestroy() {
     if (this.chart) {
       this.chart.dispose();
     }
